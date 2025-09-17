@@ -4,13 +4,11 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Scanner in = new Scanner(System.in);
-        System.out.print("What is your name?\n> ");
-        String name = in.nextLine();
 
+        Scanner in = new Scanner(System.in);
+        System.out.print("What is your namee?\n> ");
+        String name = in.nextLine();
         System.out.printf("Hello, %s!", name);
         in.close();
-
-
     }
 }
