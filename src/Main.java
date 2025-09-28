@@ -5,14 +5,16 @@ public class Main {
         Button button = new Button();
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("click");
+        System.out.println("click, введите 0 для выхода");
 
         while (true) {
             System.out.print(" ");
-            scanner.nextLine(); // ждет нажатия Enter
+            String input = scanner.nextLine();
 
+            if (input.equals("0")) {
+                break;
+            }
             button.click();
         }
     }
 }
-
