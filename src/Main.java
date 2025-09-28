@@ -1,16 +1,17 @@
 import java.util.Scanner;
 
 public class Main {
-
     public static void main(String[] args) {
+        Button button = new Button();
+        Scanner scanner = new Scanner(System.in);
 
-        Scanner in = new Scanner(System.in);
-        System.out.print("What is your name?\n> ");
-        String name = in.nextLine();
+        System.out.println("click");
 
-        System.out.printf("Hello, %s!", name);
-        in.close();
+        while (true) {
+            System.out.print(" ");
+            scanner.nextLine(); // ждет нажатия Enter
 
-
+            button.click();
+        }
     }
 }
