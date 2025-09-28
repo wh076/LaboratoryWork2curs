@@ -1,16 +1,16 @@
-import java.util.Scanner;
-
 public class Main {
-
     public static void main(String[] args) {
+        OddEvenSeparator separator = new OddEvenSeparator();
 
-        Scanner in = new Scanner(System.in);
-        System.out.print("What is your name?\n> ");
-        String name = in.nextLine();
+        separator.addNumber(1);
+        separator.addNumber(2);
+        separator.addNumber(3);
+        separator.addNumber(4);
 
-        System.out.printf("Hello, %s!", name);
-        in.close();
+        System.out.print("четные: ");
+        separator.even();
 
-
+        System.out.print("нечетные: ");
+        separator.odd();
     }
 }
