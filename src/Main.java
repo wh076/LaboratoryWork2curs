@@ -27,3 +27,4 @@ public class Main {
         System.out.println("среднее: " + table.average());
     }
 }
+
