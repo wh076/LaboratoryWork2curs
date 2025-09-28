@@ -1,16 +1,10 @@
-import java.util.Scanner;
-
 public class Main {
-
     public static void main(String[] args) {
+        Bell bell = new Bell();
 
-        Scanner in = new Scanner(System.in);
-        System.out.print("What is your name?\n> ");
-        String name = in.nextLine();
-
-        System.out.printf("Hello, %s!", name);
-        in.close();
-
-
+        bell.sound();
+        bell.sound();
+        bell.sound();
+        bell.sound();
     }
 }
