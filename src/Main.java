@@ -1,17 +1,23 @@
+java.util.Arrays;
+import java.util.Collections;
+import java.util.Vector;
 
-import java.util.*;
+public final class Main {
 
-public class Main {
+    private Main() {
+        // Private constructor
+    }
+
     public static void main(String[] args) {
         System.out.println("=== ВЫПОЛНЕНИЕ ЗАДАНИЯ С VECTOR ===\n");
 
         // 1. Создаем Vector из N случайных чисел от 0 до 100
-        int N = 10;
-        Vector<Integer> vector = Collection.createRandomVector(N);
-        System.out.println("1. Array из " + N + " случайных чисел: " + vector);
+        int n = 10;
+        Vector<Integer> vector = Collection.createRandomVector(n);
+        System.out.println("1. Array из " + n + " случайных чисел: " + vector);
 
         // 2. Vector уже создан (пропускаем преобразование из массива)
-        System.out.println("2. Vector из " + N + " случайных чисел: " + vector);
+        System.out.println("2. Vector из " + n + " случайных чисел: " + vector);
 
         // 3. Отсортируйте Vector по возрастанию
         Collections.sort(vector);
@@ -47,4 +53,3 @@ public class Main {
         Collection.printFrequency(vector);
     }
 }
-
