@@ -1,8 +1,14 @@
-import java.util.*;
+import java.util.Arrays;
+import java.util.Random;
+import java.util.Vector;
 
-public class Collection {
+public final class Collection {
 
-    // 1. Создаем Vector случайных чисел
+    private Collection() {
+        // Private constructor
+    }
+
+    // создаем Vector случайных чисел
     public static Vector<Integer> createRandomVector(int size) {
         Vector<Integer> vector = new Vector<>();
         Random random = new Random();
@@ -12,7 +18,7 @@ public class Collection {
         return vector;
     }
 
-    // 2. Уникальные элементы
+    // уникальные элементы
     public static Vector<Integer> getUniqueElements(Vector<Integer> vector) {
         Vector<Integer> unique = new Vector<>();
         for (Integer num : vector) {
@@ -23,12 +29,12 @@ public class Collection {
         return unique;
     }
 
-    // 3. Дублирующиеся элементы
+    // 3. дублирующиеся элементы
     public static Vector<Integer> getDuplicateElements(Vector<Integer> vector) {
         Vector<Integer> duplicates = new Vector<>();
         for (int i = 0; i < vector.size(); i++) {
             int currentNum = vector.get(i);
-            // Проверяем, есть ли это число где-то еще в списке
+            // проверяем, есть ли это число где-то еще в списке
             for (int j = i + 1; j < vector.size(); j++) {
                 if (currentNum == vector.get(j) && !duplicates.contains(currentNum)) {
                     duplicates.add(currentNum);
