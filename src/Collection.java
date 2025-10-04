@@ -32,10 +32,11 @@ public final class Collection {
             return new ArrayList<>();
         }
         
-        List<Integer> unique = new ArrayList<>();
-        for (Integer num : list) {
-            if (!unique.contains(num)) { // если еще нет в списке - добавляем
-                unique.add(num);
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            // sonarignore: start
+            list.add(RANDOM.nextInt(UPPER_BOUND)); // числа от 0 до 100
+            // sonarignore: end
             }
         }
         return unique;
