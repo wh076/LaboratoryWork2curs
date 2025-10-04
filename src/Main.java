@@ -1,20 +1,21 @@
-
-import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
 
 public final class Main {
-
+    
+    private static final int DEFAULT_SIZE = 10;
+    
     private Main() {
-        // Private constructor
+        // Private constructor to prevent instantiation
+        throw new UnsupportedOperationException("Utility class");
     }
-
+    
     public static void main(String[] args) {
         System.out.println("=== ВЫПОЛНЕНИЕ ЗАДАНИЯ С ARRAYLIST ===\n");
 
         // 1. Создаем ArrayList из n случайных чисел от 0 до 100
-        int n = 10;
+        int n = DEFAULT_SIZE;
         List<Integer> list = Collection.createRandomList(n);
         System.out.println("1. Array из " + n + " случайных чисел: " + list);
 
@@ -26,7 +27,7 @@ public final class Main {
         System.out.println("3. После сортировки по возрастанию: " + list);
 
         // 4. Отсортируйте ArrayList в обратном порядке
-        Collections.sort(list, Collections.reverseOrder());
+        list.sort(Collections.reverseOrder());
         System.out.println("4. После сортировки в обратном порядке: " + list);
 
         // 5. Перемешайте ArrayList
@@ -42,17 +43,17 @@ public final class Main {
         System.out.println("7. Только уникальные элементы: " + uniqueList);
 
         // 8. Оставляем в ArrayList только дублирующиеся элементы
-        List<Integer> testList = new ArrayList<>(Arrays.asList(1, 2, 2, 3, 4, 4, 4, 5));
+        List<Integer> testList = new ArrayList<>();
+        Collections.addAll(testList, 1, 2, 2, 3, 4, 4, 4, 5);
         List<Integer> duplicates = Collection.getDuplicateElements(testList);
         System.out.println("8. Только дублирующиеся элементы: " + duplicates);
 
         // 9. Из ArrayList получите массив (нужное преобразование)
         int[] array = Collection.listToArray(list);
-        System.out.println("9. Массив из ArrayList: " + Arrays.toString(array));
+        System.out.println("9. Массив из ArrayList: " + java.util.Arrays.toString(array));
 
         // 10. Подсчитайте количество вхождений каждого числа
         System.out.println("10. Количество вхождений каждого числа:");
         Collection.printFrequency(list);
     }
 }
-
