@@ -71,18 +71,6 @@ public class WordCounter {
         return mostFrequent + " (" + maxCount + " раз)";
     }
 
-    /**
-     * Получить слова отсортированные по частоте
-     * @return список слов от самых частых к самым редким
-     */
-    public List<HashMap.Entry<String, Integer>> getSortedWords() {
-        List<HashMap.Entry<String, Integer>> list = new ArrayList<>(words.entrySet());
-
-        // Сортируем по убыванию количества
-        list.sort((word1, word2) -> word2.getValue().compareTo(word1.getValue()));
-
-        return list;
-    }
 
     /**
      * Получить исходный текст

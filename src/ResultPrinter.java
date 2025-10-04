@@ -42,22 +42,7 @@ public class ResultPrinter {
         System.out.println();
     }
 
-    /**
-     * Показать отсортированный список
-     * @param counter счетчик слов
-     */
-    public void showSorted(WordCounter counter) {
-        System.out.println("ОТСОРТИРОВАННЫЙ СПИСОК (от частых к редким):");
 
-
-        List<HashMap.Entry<String, Integer>> sorted = counter.getSortedWords();
-
-        int number = 1;
-        for (HashMap.Entry<String, Integer> entry : sorted) {
-            System.out.println(number + ". " + entry.getKey() + " - " + entry.getValue() + " раз");
-            number++;
-        }
-    }
 
     /**
      * Показать все результаты
@@ -67,6 +52,6 @@ public class ResultPrinter {
         showHeader(counter);
         showWords(counter);
         showStats(counter);
-        showSorted(counter);
+
     }
 }
