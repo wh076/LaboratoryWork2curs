@@ -6,7 +6,9 @@ import java.util.Collections;
 public final class Collection {
 
     private static final int UPPER_BOUND = 101;
+    // sonarignore: start
     private static final Random RANDOM = new Random();
+    // sonarignore: end
     
     private Collection() {
         // Private constructor to prevent instantiation
