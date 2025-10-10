@@ -1,4 +1,4 @@
-name: Java CI
+name: Java Build with Maven
 
 on: [push, pull_request]
 
@@ -16,8 +16,5 @@ jobs:
         distribution: 'temurin'
         cache: 'maven'
         
-    - name: Build with Maven
-      run: mvn -B compile --file pom.xml
-      
-    - name: Run with Maven
-      run: mvn -B exec:java -Dexec.mainClass="Main" --file pom.xml
+    - name: Build and compile with Maven
+      run: mvn -B compile
