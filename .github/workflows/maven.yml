@@ -19,5 +19,5 @@ jobs:
     - name: Build with Maven
       run: mvn -B compile
       
-    - name: Run with Maven
-      run: mvn exec:java -Dexec.mainClass="Main"
+    - name: Test Compilation
+      run: mvn -B test-compile
