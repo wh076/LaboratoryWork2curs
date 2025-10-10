@@ -11,7 +11,7 @@ public class Main {
         try {
             // 1. Парсим JSON с помощью Gson
             Gson gson = new Gson();
-            FileReader reader = new FileReader("books.json");
+            FileReader reader = new FileReader("src/books.json");
             Type visitorListType = new TypeToken<List<Visitor>>(){}.getType();
             List<Visitor> visitors = gson.fromJson(reader, visitorListType);
 
