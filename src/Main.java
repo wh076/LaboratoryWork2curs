@@ -1,4 +1,3 @@
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.io.FileReader;
@@ -9,13 +8,13 @@ import java.util.stream.Collectors;
 public class Main {
     public static void main(String[] args) {
         try {
-            // 1. Парсим JSON с помощью Gson
+            // Парсим JSON с помощью Gson
             Gson gson = new Gson();
             FileReader reader = new FileReader("src/books.json");
             Type visitorListType = new TypeToken<List<Visitor>>(){}.getType();
             List<Visitor> visitors = gson.fromJson(reader, visitorListType);
 
-            // ЗАДАНИЕ 1: Список посетителей и количество (Stream API, способ работать с коллекциями в Java (списками, массивами и т.д.))
+            // ЗАДАНИЕ 1: Список посетителей и количество (Stream API)
             System.out.println("ЗАДАНИЕ 1");
             System.out.println("Список посетителей:");
             visitors.stream()
@@ -64,4 +63,3 @@ public class Main {
         }
     }
 }
-
