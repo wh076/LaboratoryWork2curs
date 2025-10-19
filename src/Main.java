@@ -7,7 +7,11 @@ public class Main {
         runAssignment2();
     }
 
-    // ЗАДАНИЕ 1 - Создание потоков
+    /**
+     * ЗАДАНИЕ 1 - Создание потоков
+     * Первый поток - наследник Thread (чётные числа)
+     * Второй поток - реализация Runnable (нечётные числа)
+     */
     private static void runAssignment1() {
         System.out.println("\nЗАДАНИЕ 1 - СОЗДАНИЕ ПОТОКОВ");
 
@@ -17,7 +21,12 @@ public class Main {
             public void run() {
                 for (int i = 2; i <= 10; i += 2) {
                     System.out.println("Чётный поток: " + i);
-                    try { Thread.sleep(500); } catch (InterruptedException e) { return; }
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                        return;
+                    }
                 }
             }
         }
@@ -28,7 +37,12 @@ public class Main {
             public void run() {
                 for (int i = 1; i <= 9; i += 2) {
                     System.out.println("Нечётный поток: " + i);
-                    try { Thread.sleep(500); } catch (InterruptedException e) { return; }
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                        return;
+                    }
                 }
             }
         }
@@ -49,11 +63,14 @@ public class Main {
         System.out.println("Оба потока завершили работу");
     }
 
-    // ЗАДАНИЕ 2 - Producer-Consumer
+    /**
+     * ЗАДАНИЕ 2 - Producer-Consumer (Склад обуви)
+     * Реализация паттерна Producer-Consumer с использованием wait/notify
+     */
     private static void runAssignment2() {
         System.out.println("\nЗАДАНИЕ 2 - PRODUCER-CONSUMER (СКЛАД ОБУВИ)");
 
-        // Класс Order - заказ
+        // Класс Order - заказ на обувь
         class Order {
             private final int orderId;
             private final String shoeType;
@@ -71,8 +88,11 @@ public class Main {
             }
         }
 
-        // Класс ShoeWarehouse - склад
+        // Класс ShoeWarehouse - склад обуви
         class ShoeWarehouse {
+            public static final java.util.List<String> PRODUCT_TYPES =
+                    java.util.List.of("Кроссовки", "Туфли", "Ботинки", "Сапоги", "Сандалии");
+
             private final java.util.Queue<Order> orders = new java.util.LinkedList<>();
             private final int capacity;
 
@@ -82,7 +102,12 @@ public class Main {
 
             public synchronized void receiveOrder(Order order) {
                 while (orders.size() >= capacity) {
-                    try { wait(); } catch (InterruptedException e) { return; }
+                    try {
+                        wait();
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                        return;
+                    }
                 }
                 orders.offer(order);
                 System.out.println("Добавлен заказ: " + order + " | Всего: " + orders.size());
@@ -91,7 +116,12 @@ public class Main {
 
             public synchronized Order fulfillOrder() {
                 while (orders.isEmpty()) {
-                    try { wait(); } catch (InterruptedException e) { return null; }
+                    try {
+                        wait();
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                        return null;
+                    }
                 }
                 Order order = orders.poll();
                 System.out.println("Обработан заказ: " + order + " | Осталось: " + orders.size());
@@ -100,7 +130,7 @@ public class Main {
             }
         }
 
-        // Класс Producer - производитель
+        // Класс Producer - производитель заказов
         class Producer implements Runnable {
             private final ShoeWarehouse warehouse;
             private final int orderCount;
@@ -112,19 +142,22 @@ public class Main {
 
             @Override
             public void run() {
-                java.util.List<String> productTypes = java.util.List.of("Кроссовки", "Туфли", "Ботинки", "Сапоги", "Сандалии");
-
-                for (int i = 1; i <= orderCount; i++) {
-                    String shoeType = productTypes.get(i % productTypes.size());
+                for (int i = 1; i <= orderCount && !Thread.currentThread().isInterrupted(); i++) {
+                    String shoeType = ShoeWarehouse.PRODUCT_TYPES.get(i % ShoeWarehouse.PRODUCT_TYPES.size());
                     Order order = new Order(i, shoeType, (i % 5) + 1);
                     warehouse.receiveOrder(order);
-                    try { Thread.sleep(200); } catch (InterruptedException e) { return; }
+                    try {
+                        Thread.sleep(200);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                        return;
+                    }
                 }
                 System.out.println("Producer завершил работу");
             }
         }
 
-        // Класс Consumer - потребитель
+        // Класс Consumer - потребитель заказов
         class Consumer implements Runnable {
             private final ShoeWarehouse warehouse;
             private final String name;
@@ -138,11 +171,16 @@ public class Main {
 
             @Override
             public void run() {
-                for (int i = 0; i < ordersToProcess; i++) {
+                for (int i = 0; i < ordersToProcess && !Thread.currentThread().isInterrupted(); i++) {
                     Order order = warehouse.fulfillOrder();
                     if (order != null) {
                         System.out.println(name + " обработал: " + order);
-                        try { Thread.sleep(300); } catch (InterruptedException e) { return; }
+                        try {
+                            Thread.sleep(300);
+                        } catch (InterruptedException e) {
+                            Thread.currentThread().interrupt();
+                            return;
+                        }
                     }
                 }
                 System.out.println(name + " завершил работу");
@@ -164,6 +202,7 @@ public class Main {
             }
         } catch (InterruptedException e) {
             executor.shutdownNow();
+            Thread.currentThread().interrupt();
         }
 
         System.out.println("Работа склада завершена");
