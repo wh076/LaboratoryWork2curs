@@ -1,3 +1,4 @@
+
 public class Main {
     public static void main(String[] args) {
         System.out.println("Задание 1 (Создание потоков)");
@@ -169,3 +170,4 @@ public class Main {
         System.out.println("Работа склада завершена");
     }
 }
+
