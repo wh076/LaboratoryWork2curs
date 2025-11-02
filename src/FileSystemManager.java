@@ -14,7 +14,7 @@ public class FileSystemManager {
 
         // Создаем файл в основной директории
         Path mainFile = mainDir.resolve("Trofim.txt");
-        Files.writeString(mainFile, "Это файл Трофима\nСоздан через Java NIO");
+        Files.writeString(mainFile, "Это файл Трофимова Михаила\nСоздан через Java NIO");
         System.out.println("Создан файл: " + mainFile);
 
         // Создаем вложенные директории
