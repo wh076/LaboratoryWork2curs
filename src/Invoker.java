@@ -61,11 +61,9 @@ public class Invoker {
         try {
             MyClass myObject = new MyClass();
             invokeAnnotatedMethods(myObject);
-
             System.out.println("Все аннотированные методы выполнены!");
         } catch (Exception e) {
-            System.out.println("Ошибка: " + e.getMessage());
-            e.printStackTrace();
+            System.out.println("Ошибка при выполнении: " + e.getClass().getSimpleName() + " - " + e.getMessage());
         }
     }
 }
