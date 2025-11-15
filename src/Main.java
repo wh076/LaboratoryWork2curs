@@ -1,50 +1,43 @@
-import lsp.*;
-import ocp.*;
-import srp.ReportManager;
-
-import java.util.List;
+import dip.*;
+import isp.*;
 
 public class Main {
     public static void main(String[] args) {
 
+        // DIP
+        System.out.println("ПРИНЦИП DIP");
+        System.out.println("До рефакторинга: NotificationService жестко зависел от EmailSender");
+        System.out.println("После рефакторинга: Зависит от абстракции MessageSender\n");
 
-        System.out.println("1. ПРИНЦИП SRP (Единственной ответственности):");
-        ReportManager manager = new ReportManager(List.of(5, 10, 15, 20));
-        manager.generateReport();
-        System.out.println();
+        // Используем EmailSender
+        NotificationService emailService = new NotificationService(new EmailSender());
+        emailService.send("Ваш заказ готов к выдаче!");
 
+        // Используем SmsSender
+        NotificationService smsService = new NotificationService(new SmsSender());
+        smsService.send("Ваш код подтверждения: 1234");
 
-        System.out.println("2. ПРИНЦИП OCP (Открытости/закрытости):");
-        DiscountCalculator calculator = new DiscountCalculator();
-        System.out.println("Regular скидка (1000 руб): " + calculator.calculateDiscount(new RegularDiscount(), 1000) + " руб");
-        System.out.println("VIP скидка (1000 руб): " + calculator.calculateDiscount(new VIPDiscount(), 1000) + " руб");
-        System.out.println("Super VIP скидка (1000 руб): " + calculator.calculateDiscount(new SuperVIPDiscount(), 1000) + " руб");
-        System.out.println("Student скидка (1000 руб): " + calculator.calculateDiscount(new StudentDiscount(), 1000) + " руб");
-        System.out.println();
+        System.out.println("DIP: Можно легко добавлять новые MessageSender без изменения кода NotificationService");
 
+        // ISP (Исправлено)
+        System.out.println("\nПРИНЦИП ISP");
+        System.out.println("До рефакторинга: Один интерфейс Machine заставлял реализовывать scan() и fax()");
+        System.out.println("После рефакторинга: Разделили на Printer, Scanner, Fax\n");
 
-        System.out.println("3. ПРИНЦИП LSP (Подстановки Лисков):");
+        // Старый принтер - реализует ТОЛЬКО печать
+        Printer oldPrinter = new OldPrinter();
+        oldPrinter.print("Отчёт за неделю");
+        System.out.println("ISP: OldPrinter реализует ТОЛЬКО Printer, не вынужден реализовывать scan/fax");
 
-        System.out.println("Летающая птица (Sparrow):");
-        displayFlyingBird(new Sparrow());
+        // Многофункциональная машина - реализует ВСЕ интерфейсы
+        MultiFunctionMachine mfm = new MultiFunctionMachine();
+        mfm.print("Важный документ");
+        mfm.scan("Фотография");
+        mfm.fax("Договор");
+        System.out.println("ISP: MultiFunctionMachine может реализовать все интерфейсы, если это нужно");
 
-        System.out.println("\nНелетающая птица (Penguin):");
-        displayNonFlyingBird(new Penguin());
-
-        System.out.println("\nРЕФАКТОРИНГ ЗАВЕРШЕН УСПЕШНО");
-        System.out.println("Все принципы SOLID соблюдены:");
-        System.out.println("- SRP: Каждый класс имеет одну ответственность");
-        System.out.println("- OCP: Система расширяется без изменения существующего кода");
-        System.out.println("- LSP: Подклассы полностью заменяемы с базовыми классами");
-    }
-
-    public static void displayFlyingBird(FlyingBird bird) {
-        bird.eat();
-        bird.fly();
-    }
-
-    public static void displayNonFlyingBird(NonFlyingBird bird) {
-        bird.eat();
-        bird.swim();
+        System.out.println("\nРЕФАКТОРИНГ ЗАВЕРШЕН");
+        System.out.println("DIP: Устранена жесткая зависимость через абстракцию MessageSender");
+        System.out.println("ISP: Большой интерфейс разделен на маленькие и специфичные");
     }
 }
