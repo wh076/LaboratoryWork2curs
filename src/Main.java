@@ -329,3 +329,4 @@ public class Main {
         System.out.println("Таблицы visitors, books и favorite_books удалены");
     }
 }
+
